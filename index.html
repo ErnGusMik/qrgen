@@ -17,12 +17,13 @@
             Generate and style your QR code easily and to your preference with
             qrgen.
         </p>
+        <div id="canvas"></div>
         <form action="#">
             <section class="config">
                 <h3>Main</h3>
                 <div class="row">
                     <label for="data">Data</label>
-                    <input type="text" id="data" />
+                    <input type="text" id="data" value="https://example.com"/>
                 </div>
                 <div class="row">
                     <label for="img">Image file</label>
@@ -30,15 +31,15 @@
                 </div>
                 <div class="row">
                     <label for="width">Width</label>
-                    <input type="number" name="width" id="width" />
+                    <input type="number" name="width" id="width" min="1" value="300"/>
                 </div>
                 <div class="row">
                     <label for="height">Height</label>
-                    <input type="number" name="height" id="height" />
+                    <input type="number" name="height" id="height" min="1" value="300"/>
                 </div>
                 <div class="row">
                     <label for="margin">Margin</label>
-                    <input type="number" name="margin" id="margin" />
+                    <input type="number" name="margin" id="margin" min="0" value="0"/>
                 </div>
                 <div class="row">
                     <input
@@ -46,6 +47,7 @@
                         name="shape"
                         id="shape_square"
                         value="square"
+                        checked
                     />
                     <label for="shape_square">Square</label>
                     <input
@@ -61,12 +63,12 @@
                 <div class="row">
                     <label for="dots_style">Style</label>
                     <select name="dots_style" id="dots_style">
-                        <option value="square">Square</option>
+                        <option value="square" selected>Square</option>
                         <option value="dots">Dots</option>
                         <option value="rounded">Rounded</option>
-                        <option value="extra_rounded">Extra rounded</option>
+                        <option value="extra-rounded">Extra rounded</option>
                         <option value="classy">Classy</option>
-                        <option value="classy_rounded">Classy rounded</option>
+                        <option value="classy-rounded">Classy rounded</option>
                     </select>
                 </div>
                 <div class="row">
@@ -74,6 +76,7 @@
                         type="radio"
                         name="dots_coltype"
                         id="dots_coltype_col"
+                        checked
                     />
                     <label for="dots_coltype_col">Single color</label>
                     <input
@@ -85,14 +88,21 @@
                 </div>
                 <div class="row">
                     <label for="dots_col_col">Color</label>
-                    <input type="color" name="dots_col_col" id="dots_col_col" />
+                    <input type="color" name="dots_col_col" id="dots_col_col" value="#000000"/>
                 </div>
                 <div class="row">
-                    <label for="dots_col_grad">Gradient</label>
+                    <label for="dots_col_grad1">Gradient</label>
                     <input
                         type="color"
-                        name="dots_col_grad"
-                        id="dots_col_grad"
+                        name="dots_col_grad1"
+                        id="dots_col_grad1"
+                        value="#000000"
+                    />
+                    <input
+                        type="color"
+                        name="dots_col_grad2"
+                        id="dots_col_grad2"
+                        value="#000000"
                     />
                 </div>
                 <div class="row">
@@ -101,6 +111,9 @@
                         type="number"
                         name="dots_col_grad_rot"
                         id="dots_col_grad_rot"
+                        min="0"
+                        max="360"
+                        value="0"
                     />
                 </div>
             </section>
@@ -109,10 +122,12 @@
                 <div class="row">
                     <label for="ocorn_style">Style</label>
                     <select name="ocorn_style" id="ocorn_style">
-                        <option value="none">None</option>
-                        <option value="square">Square</option>
+                        <option value="square" selected>Square</option>
                         <option value="dot">Dot</option>
-                        <option value="extra_rounded">Extra rounded</option>
+                        <option value="dots">Dots</option>
+                        <option value="extra-rounded">Extra rounded</option>
+                        <option value="classy">Classy</option>
+                        <option value="classy-rounded">Classy rounded</option>
                     </select>
                 </div>
                 <div class="row">
@@ -120,6 +135,7 @@
                         type="radio"
                         name="ocorn_coltype"
                         id="ocorn_coltype_col"
+                        checked
                     />
                     <label for="ocorn_coltype_col">Single color</label>
                     <input
@@ -135,14 +151,22 @@
                         type="color"
                         name="ocorn_col_col"
                         id="ocorn_col_col"
+                        value="#000000"
                     />
                 </div>
                 <div class="row">
-                    <label for="ocorn_col_grad">Gradient</label>
+                    <label for="ocorn_col_grad1">Gradient</label>
                     <input
                         type="color"
-                        name="ocorn_col_grad"
-                        id="ocorn_col_grad"
+                        name="ocorn_col_grad1"
+                        id="ocorn_col_grad1"
+                        value="#000000"
+                    />
+                    <input
+                        type="color"
+                        name="ocorn_col_grad2"
+                        id="ocorn_col_grad2"
+                        value="#000000"
                     />
                 </div>
                 <div class="row">
@@ -151,6 +175,9 @@
                         type="number"
                         name="ocorn_col_grad_rot"
                         id="ocorn_col_grad_rot"
+                        min="0"
+                        max="360"
+                        value="0"
                     />
                 </div>
             </section>
@@ -159,9 +186,12 @@
                 <div class="row">
                     <label for="icorn_style">Style</label>
                     <select name="icorn_style" id="icorn_style">
-                        <option value="none">None</option>
-                        <option value="square">Square</option>
+                        <option value="square" selected>Square</option>
                         <option value="dot">Dot</option>
+                        <option value="dots">Dots</option>
+                        <option value="extra-rounded">Extra rounded</option>
+                        <option value="classy">Classy</option>
+                        <option value="classy-rounded">Classy rounded</option>
                     </select>
                 </div>
                 <div class="row">
@@ -169,6 +199,7 @@
                         type="radio"
                         name="icorn_coltype"
                         id="icorn_coltype_col"
+                        checked
                     />
                     <label for="icorn_coltype_col">Single color</label>
                     <input
@@ -184,14 +215,22 @@
                         type="color"
                         name="icorn_col_col"
                         id="icorn_col_col"
+                        value="#000000"
                     />
                 </div>
                 <div class="row">
-                    <label for="icorn_col_grad">Gradient</label>
+                    <label for="icorn_col_grad1">Gradient</label>
                     <input
                         type="color"
-                        name="icorn_col_grad"
-                        id="icorn_col_grad"
+                        name="icorn_col_grad1"
+                        id="icorn_col_grad1"
+                        value="#000000"
+                    />
+                    <input
+                        type="color"
+                        name="icorn_col_grad2"
+                        id="icorn_col_grad2"
+                        value="#000000"
                     />
                 </div>
                 <div class="row">
@@ -200,6 +239,9 @@
                         type="number"
                         name="icorn_col_grad_rot"
                         id="icorn_col_grad_rot"
+                        min="0"
+                        max="360"
+                        value="0"
                     />
                 </div>
             </section>
@@ -210,6 +252,7 @@
                         type="radio"
                         name="backg_coltype"
                         id="backg_coltype_col"
+                        checked
                     />
                     <label for="backg_coltype_col">Single color</label>
                     <input
@@ -225,14 +268,22 @@
                         type="color"
                         name="backg_col_col"
                         id="backg_col_col"
+                        value="#ffffff"
                     />
                 </div>
                 <div class="row">
-                    <label for="backg_col_grad">Gradient</label>
+                    <label for="backg_col_grad1">Gradient</label>
                     <input
                         type="color"
-                        name="backg_col_grad"
-                        id="backg_col_grad"
+                        name="backg_col_grad1"
+                        id="backg_col_grad1"
+                        value="#ffffff"
+                    />
+                    <input
+                        type="color"
+                        name="backg_col_grad2"
+                        id="backg_col_grad2"
+                        value="#ffffff"
                     />
                 </div>
                 <div class="row">
@@ -241,6 +292,9 @@
                         type="number"
                         name="backg_col_grad_rot"
                         id="backg_col_grad_rot"
+                        min="0"
+                        max="360"
+                        value="0"
                     />
                 </div>
             </section>
@@ -252,11 +306,11 @@
                 </div>
                 <div class="row">
                     <label for="img_size">Size</label>
-                    <input type="number" name="img_size" id="img_size" />
+                    <input type="number" name="img_size" id="img_size" step="0.1" min="0.1" max="1.0"/>
                 </div>
                 <div class="row">
                     <label for="img_margin">Margin</label>
-                    <input type="number" name="img_margin" id="img_margin" />
+                    <input type="number" name="img_margin" id="img_margin" value="0"/>
                 </div>
             </section>
         </form>
