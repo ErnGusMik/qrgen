@@ -5,6 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>qrgen - The simplest way to generate QR codes</title>
         <link rel="stylesheet" href="index.css" />
+        <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
         <script src="index.js" defer></script>
         <script
             type="text/javascript"
@@ -12,307 +13,385 @@
         ></script>
     </head>
     <body>
-        <h1>Generate a QR code</h1>
-        <p>
-            Generate and style your QR code easily and to your preference with
-            qrgen.
-        </p>
-        <div id="canvas"></div>
-        <form action="#">
-            <section class="config">
-                <h3>Main</h3>
-                <div class="row">
-                    <label for="data">Data</label>
-                    <input type="text" id="data" value="https://example.com"/>
-                </div>
-                <div class="row">
-                    <label for="img">Image file</label>
-                    <input type="file" name="img" id="img" accept="image/*"/>
-                </div>
-                <div class="row">
-                    <label for="width">Width</label>
-                    <input type="number" name="width" id="width" min="1" value="300"/>
-                </div>
-                <div class="row">
-                    <label for="height">Height</label>
-                    <input type="number" name="height" id="height" min="1" value="300"/>
-                </div>
-                <div class="row">
-                    <label for="margin">Margin</label>
-                    <input type="number" name="margin" id="margin" min="0" value="0"/>
-                </div>
-                <div class="row">
-                    <input
-                        type="radio"
-                        name="shape"
-                        id="shape_square"
-                        value="square"
-                        checked
-                    />
-                    <label for="shape_square">Square</label>
-                    <input
-                        type="radio"
-                        name="shape"
-                        id="shape_circle"
-                    />
-                    <label for="shape_circle">Circle</label>
-                </div>
-            </section>
-            <section class="config">
-                <h3>Dots</h3>
-                <div class="row">
-                    <label for="dots_style">Style</label>
-                    <select name="dots_style" id="dots_style">
-                        <option value="square" selected>Square</option>
-                        <option value="dots">Dots</option>
-                        <option value="rounded">Rounded</option>
-                        <option value="extra-rounded">Extra rounded</option>
-                        <option value="classy">Classy</option>
-                        <option value="classy-rounded">Classy rounded</option>
-                    </select>
-                </div>
-                <div class="row">
-                    <input
-                        type="radio"
-                        name="dots_coltype"
-                        id="dots_coltype_col"
-                        checked
-                    />
-                    <label for="dots_coltype_col">Single color</label>
-                    <input
-                        type="radio"
-                        name="dots_coltype"
-                        id="dots_coltype_grad"
-                    />
-                    <label for="dots_coltype_grad">Gradient</label>
-                </div>
-                <div class="row">
-                    <label for="dots_col_col">Color</label>
-                    <input type="color" name="dots_col_col" id="dots_col_col" value="#000000"/>
-                </div>
-                <div class="row">
-                    <label for="dots_col_grad1">Gradient</label>
-                    <input
-                        type="color"
-                        name="dots_col_grad1"
-                        id="dots_col_grad1"
-                        value="#000000"
-                    />
-                    <input
-                        type="color"
-                        name="dots_col_grad2"
-                        id="dots_col_grad2"
-                        value="#000000"
-                    />
-                </div>
-                <div class="row">
-                    <label for="dots_col_grad_rot">Gradient rotation</label>
-                    <input
-                        type="number"
-                        name="dots_col_grad_rot"
-                        id="dots_col_grad_rot"
-                        min="0"
-                        max="360"
-                        value="0"
-                    />
-                </div>
-            </section>
-            <section class="config">
-                <h3>Outer corners</h3>
-                <div class="row">
-                    <label for="ocorn_style">Style</label>
-                    <select name="ocorn_style" id="ocorn_style">
-                        <option value="square" selected>Square</option>
-                        <option value="dot">Dot</option>
-                        <option value="dots">Dots</option>
-                        <option value="extra-rounded">Extra rounded</option>
-                        <option value="classy">Classy</option>
-                        <option value="classy-rounded">Classy rounded</option>
-                    </select>
-                </div>
-                <div class="row">
-                    <input
-                        type="radio"
-                        name="ocorn_coltype"
-                        id="ocorn_coltype_col"
-                        checked
-                    />
-                    <label for="ocorn_coltype_col">Single color</label>
-                    <input
-                        type="radio"
-                        name="ocorn_coltype"
-                        id="ocorn_coltype_grad"
-                    />
-                    <label for="ocorn_coltype_grad">Gradient</label>
-                </div>
-                <div class="row">
-                    <label for="ocorn_col_col">Color</label>
-                    <input
-                        type="color"
-                        name="ocorn_col_col"
-                        id="ocorn_col_col"
-                        value="#000000"
-                    />
-                </div>
-                <div class="row">
-                    <label for="ocorn_col_grad1">Gradient</label>
-                    <input
-                        type="color"
-                        name="ocorn_col_grad1"
-                        id="ocorn_col_grad1"
-                        value="#000000"
-                    />
-                    <input
-                        type="color"
-                        name="ocorn_col_grad2"
-                        id="ocorn_col_grad2"
-                        value="#000000"
-                    />
-                </div>
-                <div class="row">
-                    <label for="ocorn_col_grad_rot">Gradient rotation</label>
-                    <input
-                        type="number"
-                        name="ocorn_col_grad_rot"
-                        id="ocorn_col_grad_rot"
-                        min="0"
-                        max="360"
-                        value="0"
-                    />
-                </div>
-            </section>
-            <section class="config">
-                <h3>Inner corners</h3>
-                <div class="row">
-                    <label for="icorn_style">Style</label>
-                    <select name="icorn_style" id="icorn_style">
-                        <option value="square" selected>Square</option>
-                        <option value="dot">Dot</option>
-                        <option value="dots">Dots</option>
-                        <option value="extra-rounded">Extra rounded</option>
-                        <option value="classy">Classy</option>
-                        <option value="classy-rounded">Classy rounded</option>
-                    </select>
-                </div>
-                <div class="row">
-                    <input
-                        type="radio"
-                        name="icorn_coltype"
-                        id="icorn_coltype_col"
-                        checked
-                    />
-                    <label for="icorn_coltype_col">Single color</label>
-                    <input
-                        type="radio"
-                        name="icorn_coltype"
-                        id="icorn_coltype_grad"
-                    />
-                    <label for="icorn_coltype_grad">Gradient</label>
-                </div>
-                <div class="row">
-                    <label for="icorn_col_col">Color</label>
-                    <input
-                        type="color"
-                        name="icorn_col_col"
-                        id="icorn_col_col"
-                        value="#000000"
-                    />
-                </div>
-                <div class="row">
-                    <label for="icorn_col_grad1">Gradient</label>
-                    <input
-                        type="color"
-                        name="icorn_col_grad1"
-                        id="icorn_col_grad1"
-                        value="#000000"
-                    />
-                    <input
-                        type="color"
-                        name="icorn_col_grad2"
-                        id="icorn_col_grad2"
-                        value="#000000"
-                    />
-                </div>
-                <div class="row">
-                    <label for="icorn_col_grad_rot">Gradient rotation</label>
-                    <input
-                        type="number"
-                        name="icorn_col_grad_rot"
-                        id="icorn_col_grad_rot"
-                        min="0"
-                        max="360"
-                        value="0"
-                    />
-                </div>
-            </section>
-            <section class="config">
-                <h3>Background</h3>
-                <div class="row">
-                    <input
-                        type="radio"
-                        name="backg_coltype"
-                        id="backg_coltype_col"
-                        checked
-                    />
-                    <label for="backg_coltype_col">Single color</label>
-                    <input
-                        type="radio"
-                        name="backg_coltype"
-                        id="backg_coltype_grad"
-                    />
-                    <label for="backg_coltype_grad">Gradient</label>
-                </div>
-                <div class="row">
-                    <label for="backg_col_col">Color</label>
-                    <input
-                        type="color"
-                        name="backg_col_col"
-                        id="backg_col_col"
-                        value="#ffffff"
-                    />
-                </div>
-                <div class="row">
-                    <label for="backg_col_grad1">Gradient</label>
-                    <input
-                        type="color"
-                        name="backg_col_grad1"
-                        id="backg_col_grad1"
-                        value="#ffffff"
-                    />
-                    <input
-                        type="color"
-                        name="backg_col_grad2"
-                        id="backg_col_grad2"
-                        value="#ffffff"
-                    />
-                </div>
-                <div class="row">
-                    <label for="backg_col_grad_rot">Gradient rotation</label>
-                    <input
-                        type="number"
-                        name="backg_col_grad_rot"
-                        id="backg_col_grad_rot"
-                        min="0"
-                        max="360"
-                        value="0"
-                    />
-                </div>
-            </section>
-            <section class="config">
-                <h3>Image</h3>
-                <div class="row">
-                    <label for="img_hide">Hide background</label>
-                    <input type="checkbox" name="img_hide" id="img_hide" />
-                </div>
-                <div class="row">
-                    <label for="img_size">Size</label>
-                    <input type="number" name="img_size" id="img_size" step="0.1" min="0.1" max="1.0"/>
-                </div>
-                <div class="row">
-                    <label for="img_margin">Margin</label>
-                    <input type="number" name="img_margin" id="img_margin" value="0"/>
-                </div>
-            </section>
-        </form>
+        <div class="banner">
+            <h1>Generate a QR code</h1>
+            <p>
+                Generate and style your QR code easily and to your preference
+                with qrgen.
+            </p>
+        </div>
+        <div class="content-container">
+            <div id="canvas"></div>
+            <form action="#" onsubmit="return false;">
+                <section class="config">
+                    <h3>Main</h3>
+                    <div class="row">
+                        <label for="data">Data</label>
+                        <input
+                            type="text"
+                            id="data"
+                            value="https://example.com"
+                        />
+                    </div>
+                    <div class="row">
+                        <label for="img">Image file</label>
+                        <input
+                            type="file"
+                            name="img"
+                            id="img"
+                            accept="image/*"
+                        />
+                    </div>
+                    <div class="row">
+                        <label for="width">Width</label>
+                        <input
+                            type="number"
+                            name="width"
+                            id="width"
+                            min="1"
+                            value="300"
+                        />
+                    </div>
+                    <div class="row">
+                        <label for="height">Height</label>
+                        <input
+                            type="number"
+                            name="height"
+                            id="height"
+                            min="1"
+                            value="300"
+                        />
+                    </div>
+                    <div class="row">
+                        <label for="margin">Margin</label>
+                        <input
+                            type="number"
+                            name="margin"
+                            id="margin"
+                            min="0"
+                            value="10"
+                        />
+                    </div>
+                    <div class="row">
+                        <div></div>
+                        <div class="radio">
+                            <input
+                                type="radio"
+                                name="shape"
+                                id="shape_square"
+                                value="square"
+                                checked
+                            />
+                            <label for="shape_square">Square</label>
+                            <input
+                                type="radio"
+                                name="shape"
+                                id="shape_circle"
+                                value="circle"
+                            />
+                            <label for="shape_circle">Circle</label>
+                        </div>
+                    </div>
+                </section>
+                <section class="config">
+                    <h3>Dots</h3>
+                    <div class="row">
+                        <label for="dots_style">Style</label>
+                        <select name="dots_style" id="dots_style">
+                            <option value="square">Square</option>
+                            <option value="dots">Dots</option>
+                            <option value="rounded" selected>Rounded</option>
+                            <option value="extra-rounded">Extra rounded</option>
+                            <option value="classy">Classy</option>
+                            <option value="classy-rounded">
+                                Classy rounded
+                            </option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div></div>
+                        <div class="radio">
+                            <input
+                                type="radio"
+                                name="dots_coltype"
+                                id="dots_coltype_col"
+                                checked
+                            />
+                            <label for="dots_coltype_col">Single color</label>
+                            <input
+                                type="radio"
+                                name="dots_coltype"
+                                id="dots_coltype_grad"
+                            />
+                            <label for="dots_coltype_grad">Gradient</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="dots_col_col">Color</label>
+                        <input
+                            type="color"
+                            name="dots_col_col"
+                            id="dots_col_col"
+                            value="#e8615a"
+                        />
+                    </div>
+                    <div class="row">
+                        <label for="dots_col_grad1">Gradient</label>
+                        <input
+                            type="color"
+                            name="dots_col_grad1"
+                            id="dots_col_grad1"
+                            value="#000000"
+                        />
+                        <input
+                            type="color"
+                            name="dots_col_grad2"
+                            id="dots_col_grad2"
+                            value="#000000"
+                        />
+                    </div>
+                    <div class="row">
+                        <label for="dots_col_grad_rot">Gradient rotation</label>
+                        <input
+                            type="number"
+                            name="dots_col_grad_rot"
+                            id="dots_col_grad_rot"
+                            min="0"
+                            max="360"
+                            value="0"
+                        />
+                    </div>
+                </section>
+                <section class="config">
+                    <h3>Outer corners</h3>
+                    <div class="row">
+                        <label for="ocorn_style">Style</label>
+                        <select name="ocorn_style" id="ocorn_style">
+                            <option value="square">Square</option>
+                            <option value="dot" selected>Dot</option>
+                            <option value="dots">Dots</option>
+                            <option value="extra-rounded">Extra rounded</option>
+                            <option value="classy">Classy</option>
+                            <option value="classy-rounded">
+                                Classy rounded
+                            </option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div></div>
+                        <div class="radio">
+                            <input
+                                type="radio"
+                                name="ocorn_coltype"
+                                id="ocorn_coltype_col"
+                                checked
+                            />
+                            <label for="ocorn_coltype_col">Single color</label>
+                            <input
+                                type="radio"
+                                name="ocorn_coltype"
+                                id="ocorn_coltype_grad"
+                            />
+                            <label for="ocorn_coltype_grad">Gradient</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="ocorn_col_col">Color</label>
+                        <input
+                            type="color"
+                            name="ocorn_col_col"
+                            id="ocorn_col_col"
+                            value="#2be4ea"
+                        />
+                    </div>
+                    <div class="row">
+                        <label for="ocorn_col_grad1">Gradient</label>
+                        <input
+                            type="color"
+                            name="ocorn_col_grad1"
+                            id="ocorn_col_grad1"
+                            value="#000000"
+                        />
+                        <input
+                            type="color"
+                            name="ocorn_col_grad2"
+                            id="ocorn_col_grad2"
+                            value="#000000"
+                        />
+                    </div>
+                    <div class="row">
+                        <label for="ocorn_col_grad_rot"
+                            >Gradient rotation</label
+                        >
+                        <input
+                            type="number"
+                            name="ocorn_col_grad_rot"
+                            id="ocorn_col_grad_rot"
+                            min="0"
+                            max="360"
+                            value="0"
+                        />
+                    </div>
+                </section>
+                <section class="config">
+                    <h3>Inner corners</h3>
+                    <div class="row">
+                        <label for="icorn_style">Style</label>
+                        <select name="icorn_style" id="icorn_style">
+                            <option value="square">Square</option>
+                            <option value="dot" selected>Dot</option>
+                            <option value="dots">Dots</option>
+                            <option value="extra-rounded">Extra rounded</option>
+                            <option value="classy">Classy</option>
+                            <option value="classy-rounded">
+                                Classy rounded
+                            </option>
+                        </select>
+                    </div>
+                    <div class="row">
+                        <div></div>
+                        <div class="radio">
+                            <input
+                                type="radio"
+                                name="icorn_coltype"
+                                id="icorn_coltype_col"
+                                checked
+                            />
+                            <label for="icorn_coltype_col">Single color</label>
+                            <input
+                                type="radio"
+                                name="icorn_coltype"
+                                id="icorn_coltype_grad"
+                            />
+                            <label for="icorn_coltype_grad">Gradient</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="icorn_col_col">Color</label>
+                        <input
+                            type="color"
+                            name="icorn_col_col"
+                            id="icorn_col_col"
+                            value="#2be4ea"
+                        />
+                    </div>
+                    <div class="row">
+                        <label for="icorn_col_grad1">Gradient</label>
+                        <input
+                            type="color"
+                            name="icorn_col_grad1"
+                            id="icorn_col_grad1"
+                            value="#000000"
+                        />
+                        <input
+                            type="color"
+                            name="icorn_col_grad2"
+                            id="icorn_col_grad2"
+                            value="#000000"
+                        />
+                    </div>
+                    <div class="row">
+                        <label for="icorn_col_grad_rot"
+                            >Gradient rotation</label
+                        >
+                        <input
+                            type="number"
+                            name="icorn_col_grad_rot"
+                            id="icorn_col_grad_rot"
+                            min="0"
+                            max="360"
+                            value="0"
+                        />
+                    </div>
+                </section>
+                <section class="config">
+                    <h3>Background</h3>
+                    <div class="row">
+                        <div></div>
+                        <div class="radio">
+                            <input
+                                type="radio"
+                                name="backg_coltype"
+                                id="backg_coltype_col"
+                            />
+                            <label for="backg_coltype_col">Single color</label>
+                            <input
+                                type="radio"
+                                name="backg_coltype"
+                                id="backg_coltype_grad"
+                                checked
+                            />
+                            <label for="backg_coltype_grad">Gradient</label>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <label for="backg_col_col">Color</label>
+                        <input
+                            type="color"
+                            name="backg_col_col"
+                            id="backg_col_col"
+                            value="#ffffff"
+                        />
+                    </div>
+                    <div class="row">
+                        <label for="backg_col_grad1">Gradient</label>
+                        <input
+                            type="color"
+                            name="backg_col_grad1"
+                            id="backg_col_grad1"
+                            value="#461616"
+                        />
+                        <input
+                            type="color"
+                            name="backg_col_grad2"
+                            id="backg_col_grad2"
+                            value="#1e181e"
+                        />
+                    </div>
+                    <div class="row">
+                        <label for="backg_col_grad_rot"
+                            >Gradient rotation</label
+                        >
+                        <input
+                            type="number"
+                            name="backg_col_grad_rot"
+                            id="backg_col_grad_rot"
+                            min="0"
+                            max="360"
+                            value="0"
+                        />
+                    </div>
+                </section>
+                <section class="config">
+                    <h3>Image</h3>
+                    <div class="row">
+                        <label for="img_hide">Hide background</label>
+                        <input type="checkbox" name="img_hide" id="img_hide" />
+                    </div>
+                    <div class="row">
+                        <label for="img_size">Size</label>
+                        <input
+                            type="number"
+                            name="img_size"
+                            id="img_size"
+                            step="0.1"
+                            min="0.1"
+                            max="1.0"
+                            value="0.4"
+                        />
+                    </div>
+                    <div class="row">
+                        <label for="img_margin">Margin</label>
+                        <input
+                            type="number"
+                            name="img_margin"
+                            id="img_margin"
+                            value="0"
+                        />
+                    </div>
+                </section>
+                <button id="download">Download QR</button>
+            </form>
+        </div>
     </body>
 </html>

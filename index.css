@@ -1,0 +1,146 @@
+@import url("https://fonts.googleapis.com/css2?family=Google+Sans+Flex:opsz,wght@6..144,1..1000&display=swap");
+
+body {
+    margin: 0;
+    font-family: "Google Sans Flex", sans-serif;
+    background-color: var(--faded-color);
+}
+
+:root {
+    --background-color: #fbfbfb;
+    --primary-color: #c4d9ff;
+    --secondary-color: #c5baff;
+    --faded-color: #e8f9ff;
+}
+
+.banner {
+    background-color: var(--primary-color);
+    margin: 50px 50px 0 50px;
+    border-radius: 16px;
+    height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner h1 {
+    font-size: 3em;
+    font-weight: 800;
+}
+
+.content-container {
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    margin: 50px;
+    margin-bottom: 0;
+    gap: 50px;
+}
+
+#canvas {
+    background-color: var(--primary-color);
+    flex-grow: 1;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#canvas > canvas {
+    padding: 10px;
+    border-radius: 10px;
+    background: linear-gradient(0deg, #461616 0%, #1e181e 100%);
+}
+
+form {
+    background-color: var(--primary-color);
+    padding: 20px;
+    border-radius: 16px;
+    margin-bottom: 10px;
+}
+
+.config {
+    background-color: var(--faded-color);
+    padding: 10px 20px;
+    margin: 10px 0;
+    border-radius: 10px;
+    min-width: 400px;
+}
+
+.config h3 {
+    margin-top: 0;
+    font-weight: 700;
+    font-size: 1em;
+}
+
+label {
+    margin: 20px 0;
+    font-weight: 300;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    padding: 10px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-family: "Google Sans Flex", sans-serif;
+    width: calc(100% - 180px);
+}
+
+input[type="color"] {
+    margin-left: 10px;
+    width: 40px;
+    height: 30px;
+    border: none;
+    padding: 0;
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+input[type="file"] {
+    margin-top: 10px;
+}
+
+input[type="file"]::file-selector-button {
+    border: none;
+    background-color: var(--secondary-color);
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-family: "Google Sans Flex", sans-serif;
+    font-size: 1em;
+}
+
+input[type="radio"] {
+    margin: auto 10px auto 0;
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.radio {
+    width: calc(100% - 180px);
+    margin: 15px 0;
+}
+
+button {
+    background-color: var(--secondary-color);
+    border: none;
+    padding: 15px 30px;
+    border-radius: 10px;
+    font-size: 1em;
+    font-family: "Google Sans Flex", sans-serif;
+    cursor: pointer;
+    display: block;
+    margin: auto;
+    margin-top: 20px;
+}

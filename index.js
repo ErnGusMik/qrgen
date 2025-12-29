@@ -1,6 +1,10 @@
+let qrCode;
+let currentImageData = null;
+
 const reader = new FileReader();
 reader.onload = () => {
-    return reader.result;
+    currentImageData = reader.result;
+    generateQR();
 };
 
 const generateQR = () => {
@@ -19,7 +23,7 @@ const generateQR = () => {
         data: document.getElementById("data").value,
         image:
             document.getElementById("img").value != ""
-                ? reader.readAsDataURL(document.getElementById("img"))
+                ? currentImageData
                 : "",
         margin: document.getElementById("margin").value,
         imageOptions: {
@@ -34,52 +38,12 @@ const generateQR = () => {
             color: dotsGradient
                 ? ""
                 : document.getElementById("dots_col_col").value,
-            // gradient: dotsGradient
-            //     ? {
-            //           type: "linear",
-            //           rotation:
-            //               document.getElementById("dots_col_grad_rot").value *
-            //               (Math.PI / 180),
-            //           colorStops: [
-            //               {
-            //                   offset: 0,
-            //                   color: document.getElementById("dots_col_grad1")
-            //                       .value,
-            //               },
-            //               {
-            //                   offset: 1,
-            //                   color: document.getElementById("dots_col_grad2")
-            //                       .value,
-            //               },
-            //           ],
-            //       }
-            //     : {colorStops: []},
         },
         backgroundOptions: {
             // BACKGROUND
             color: backgroundGradient
                 ? ""
                 : document.getElementById("backg_col_col").value,
-            // gradient: backgroundGradient
-            //     ? {
-            //           type: "linear",
-            //           rotation:
-            //               document.getElementById("backg_col_grad_rot").value *
-            //               (Math.PI / 180),
-            //           colorStops: [
-            //               {
-            //                   offset: 0,
-            //                   color: document.getElementById("backg_col_grad1")
-            //                       .value,
-            //               },
-            //               {
-            //                   offset: 1,
-            //                   color: document.getElementById("backg_col_grad2")
-            //                       .value,
-            //               },
-            //           ],
-            //       }
-            //     : {colorStops: []},
         },
         cornersSquareOptions: {
             // OUTER CORNER
@@ -87,26 +51,6 @@ const generateQR = () => {
             color: ocornGradient
                 ? ""
                 : document.getElementById("ocorn_col_col").value,
-            // gradient: ocornGradient
-            //     ? {
-            //           type: "linear",
-            //           rotation:
-            //               document.getElementById("ocorn_col_grad_rot").value *
-            //               (Math.PI / 180),
-            //           colorStops: [
-            //               {
-            //                   offset: 0,
-            //                   color: document.getElementById("ocorn_col_grad1")
-            //                       .value,
-            //               },
-            //               {
-            //                   offset: 1,
-            //                   color: document.getElementById("ocorn_col_grad2")
-            //                       .value,
-            //               },
-            //           ],
-            //       }
-            //     : {colorStops: []},
         },
         cornersDotOptions: {
             // INNER CORNER
@@ -114,37 +58,113 @@ const generateQR = () => {
             color: icornGradient
                 ? ""
                 : document.getElementById("icorn_col_col").value,
-            // gradient: icornGradient
-            //     ? {
-            //           type: "linear",
-            //           rotation:
-            //               document.getElementById("icorn_col_grad_rot").value *
-            //               (Math.PI / 180),
-            //           colorStops: [
-            //               {
-            //                   offset: 0,
-            //                   color: document.getElementById("icorn_col_grad1")
-            //                       .value,
-            //               },
-            //               {
-            //                   offset: 1,
-            //                   color: document.getElementById("icorn_col_grad2")
-            //                       .value,
-            //               },
-            //           ],
-            //       }
-            //     : {colorStops: []},
         },
     };
 
-    const qrCode = new QRCodeStyling(options);
+    if (dotsGradient) {
+        options.dotsOptions.gradient = {
+            type: "linear",
+            rotation:
+                document.getElementById("dots_col_grad_rot").value *
+                (Math.PI / 180),
+            colorStops: [
+                {
+                    offset: 0,
+                    color: document.getElementById("dots_col_grad1").value,
+                },
+                {
+                    offset: 1,
+                    color: document.getElementById("dots_col_grad2").value,
+                },
+            ],
+        };
+    }
+
+    if (backgroundGradient) {
+        options.backgroundOptions.gradient = {
+            type: "linear",
+            rotation:
+                document.getElementById("backg_col_grad_rot").value *
+                (Math.PI / 180),
+            colorStops: [
+                {
+                    offset: 0,
+                    color: document.getElementById("backg_col_grad1").value,
+                },
+                {
+                    offset: 1,
+                    color: document.getElementById("backg_col_grad2").value,
+                },
+            ],
+        };
+    }
+
+    if (ocornGradient) {
+        options.cornersSquareOptions.gradient = {
+            type: "linear",
+            rotation:
+                document.getElementById("ocorn_col_grad_rot").value *
+                (Math.PI / 180),
+            colorStops: [
+                {
+                    offset: 0,
+                    color: document.getElementById("ocorn_col_grad1").value,
+                },
+                {
+                    offset: 1,
+                    color: document.getElementById("ocorn_col_grad2").value,
+                },
+            ],
+        };
+    }
+
+    if (icornGradient) {
+        options.cornersDotOptions.gradient = {
+            type: "linear",
+            rotation:
+                document.getElementById("icorn_col_grad_rot").value *
+                (Math.PI / 180),
+            colorStops: [
+                {
+                    offset: 0,
+                    color: document.getElementById("icorn_col_grad1").value,
+                },
+                {
+                    offset: 1,
+                    color: document.getElementById("icorn_col_grad2").value,
+                },
+            ],
+        };
+    }
+
+    if (qrCode) {
+        qrCode.update(options);
+        document.querySelector("canvas").style.background = backgroundGradient
+            ? `linear-gradient(${
+                  document.getElementById("backg_col_grad_rot").value
+              }deg, ${document.getElementById("backg_col_grad1").value}, ${
+                  document.getElementById("backg_col_grad2").value
+              })`
+            : document.getElementById("backg_col_col").value;
+        return;
+    }
+
+    qrCode = new QRCodeStyling(options);
     const canvas = document.getElementById("canvas");
 
-    if (canvas.hasChildNodes()) {
-        canvas.removeChild(canvas.firstChild);
-    }
     qrCode.append(canvas);
 };
 
 document.querySelector("form").addEventListener("change", generateQR);
-generateQR()
+generateQR();
+
+
+document.getElementById("download").addEventListener("click", () => {
+    qrCode.download({
+        extension: "png",
+    });
+});
+
+document.getElementById("img").addEventListener("change", (e) => {
+    reader.readAsDataURL(e.target.files[0]);
+});
